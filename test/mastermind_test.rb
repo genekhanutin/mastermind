@@ -31,16 +31,10 @@ class MastermindTest < Minitest::Test
   end
 
   def test_it_has_a_maximum_amount_of_guesses
-  end
-
-
-  def test_it_checks_if_user_entry_is_valid_and_displays_appropriate_message
     skip
-  	mm = Mastermind.new
+    mm = Mastermind.new
 
-  	assert_equal too_many_char, mm.evaluate_entry("rbygg")
-  	assert_equal not_enough_char, mm.evaluate_entry("rby")
-  	assert_equal color_unknown, mm.evaluate_entry("rpyo")
+    assert_equal "You lose!"
   end
 
   def test_it_can_take_in_a_guess

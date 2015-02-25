@@ -4,7 +4,7 @@ class Mastermind
 
 	attr_reader :generated_sequence
 
-	def initialize()
+	def initialize
 		@colors = ['r','g','b','y']
 		@generated_sequence = nil
 		@guess_count = 15
@@ -47,14 +47,15 @@ class Mastermind
 
 end
 
+# Test with this:
 
-mm = Mastermind.new
+# mm = Mastermind.new
 
-message = mm.user_entry_valid?("rby")
+# message = mm.user_entry_valid?("rby")
 
-print = Response.new
+# print = Response.new
 
-puts print.send(message)
+# puts print.send(message)
 
 
 #puts mm.color_shuffle
