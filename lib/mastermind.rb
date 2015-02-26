@@ -2,7 +2,7 @@ require_relative 'response'
 
 class Mastermind
 
-	attr_reader :generated_sequence
+	attr_reader :generated_sequence, :correct_positions, :correct_colors
 
 	def initialize
 		@colors = ['r','g','b','y']
@@ -37,15 +37,29 @@ class Mastermind
 		end
 	end
 
-	def evaluate_colors(guess, code = generated_sequence)
-	end
+	# def evaluate_colors(guess, color_code = generated_sequence)
+	# 	correct_colors = 0
+		
+	# 		end
+	# 	end
+	# 	correct_colors
+	# end
 
-	def evaluate_positions(guess, code = generated_sequence)
+	def evaluate_positions(guess, color_code = generated_sequence)
+		correct_positions = 0
+		guess = guess.split("")
+		generated_sequence = color_code.split("")
+		guess.each_with_index do |color, position|
+			if color == generated_sequence[position]
+				correct_positions += 1		
+			end
+		end
+		correct_positions
 	end
 
 	def evaluate_guess(guess, code = generated_sequence)
 		# takes in a guess and a code
-		# return number of correct colors and number of correct positions
+		# return number of correct colors(method) and number of correct positions(method)
 		# {:colors => "number of correct colors", :positions => "number in correct positions"}
 	end
 

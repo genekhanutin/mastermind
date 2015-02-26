@@ -1,10 +1,10 @@
-require 'minitest/autorun'
-require 'minitest/pride'
-require './lib/mastermind'
-require './lib/response'
+  require 'minitest/autorun'
+  require 'minitest/pride'
+  require './lib/mastermind'
+  require './lib/response'
 
-class MastermindTest < Minitest::Test
-  
+  class MastermindTest < Minitest::Test
+
 
   def test_it_exists
     assert MastermindTest
@@ -20,7 +20,6 @@ class MastermindTest < Minitest::Test
   end
 
   def test_it_can_take_in_a_guess
-  	skip
   	mm = Mastermind.new
   	assert_equal "rrby", mm.guess("rrby")
   end
@@ -63,25 +62,30 @@ class MastermindTest < Minitest::Test
     assert_equal :color_unknown, mm.evaluate_entry('rxxr')
   end
 
-   def test_evaluate_colors_returns_number_of_correct_colors
+  def test_evaluate_positions_returns_number_of_correct_positions
+    mm = Mastermind.new
+    assert_equal 2, mm.evaluate_positions("byrb", "yyrg")
+    assert_equal 1, mm.evaluate_positions("byrb", "yyyy")
+    assert_equal 0, mm.evaluate_positions("ryrr", "gbgb")
+    assert_equal 3, mm.evaluate_positions("ybgb", "gbgb")
+    assert_equal 2, mm.evaluate_positions("rbrb", "gbgb")
+    assert_equal 4, mm.evaluate_positions("gbgb", "gbgb")
+  end
+
+  def test_evaluate_colors_returns_number_of_correct_colors
     # to test guessing and getting feedback about # of overlapping
     # set up a mastermind instance
     # some way to set up the code for the game
     # set up a guess against that code where we have 2 of the correct color
     # call evaluate_guess and pass in our guess
     # verify it comes back saying 2 colors are correct
-      mm = Mastermind.new
-      assert_equal 2, mm.evaluate_colors("rrgb", "yyrg")
-  end
-
-  def test_evaluate_positions_returns_number_of_correct_positions
-  	# message gives number of correct positions
+    skip
     mm = Mastermind.new
-    assert_equal 2, mm.evaluate_positions("byrb", "yyrg")
-  end
-
-  def test_w
-  	skip
+    assert_equal 4, mm.evaluate_colors("rrbg", "rrbg")
+    assert_equal 0, mm.evaluate_colors("gbgb", "yyyy")
+    assert_equal 2, mm.evaluate_colors("bggr", "brrr")
+    assert_equal 3, mm.evaluate_colors("bgbr", "bgbg")
+    assert_equal 1, mm.evaluate_colors("bgbr", "bgbg")
   end
 
   def test_it_has_a_start_time
@@ -97,5 +101,5 @@ class MastermindTest < Minitest::Test
   def test_it_prints_game_statistics_after_game_is_over
   	skip
   end
-  
-end
+
+  end
