@@ -22,7 +22,6 @@ class MastermindTest < Minitest::Test
   def test_it_can_take_in_a_guess
   	skip
   	mm = Mastermind.new
-
   	assert_equal "rrby", mm.guess("rrby")
   end
 
@@ -33,51 +32,55 @@ class MastermindTest < Minitest::Test
   def test_it_has_a_maximum_amount_of_guesses
     skip
     mm = Mastermind.new
-
     assert_equal "You lose!"
   end
 
   def test_it_can_take_in_a_guess
     mm = Mastermind.new
-
     assert_equal "rbyb", mm.guess("rbyb")
   end
 
   def test_it_prompts_with_error_message_when_guess_too_long
     mm = Mastermind.new
-
-    assert_equal :too_many_char, mm.user_entry_valid?("rrbby")
+    assert_equal :too_many_char, mm.evaluate_entry("rrbby")
+    assert_equal :too_many_char, mm.evaluate_entry("rrbbyr")
+    assert_equal :too_many_char, mm.evaluate_entry("rrbbggy")
   end
 
   def test_it_prompts_with_error_message_when_guess_too_short
     mm = Mastermind.new
-
-    assert_equal :not_enough_char, mm.user_entry_valid?("rb")
+    assert_equal :not_enough_char, mm.evaluate_entry("rb")
+    assert_equal :not_enough_char, mm.evaluate_entry("r")
+    assert_equal :not_enough_char, mm.evaluate_entry("rby")
   end
 
   def test_it_confirms_colors_entered_are_correct
-  	skip
   	mm = Mastermind.new
-  	assert true, mm.correct_colors?
+  	assert_equal nil, mm.evaluate_entry("rrrr")
+    assert_equal nil, mm.evaluate_entry("rgyb")
+    assert_equal :color_unknown, mm.evaluate_entry('orrr')
+    assert_equal :color_unknown, mm.evaluate_entry('rrro')
+    assert_equal :color_unknown, mm.evaluate_entry('rxxr')
   end
 
-   def test_when_colors_are_correct_it_prompts_the_user_with_a_message
-   	# message gives number of correct colors
-  	skip
+   def test_evaluate_colors_returns_number_of_correct_colors
+    # to test guessing and getting feedback about # of overlapping
+    # set up a mastermind instance
+    # some way to set up the code for the game
+    # set up a guess against that code where we have 2 of the correct color
+    # call evaluate_guess and pass in our guess
+    # verify it comes back saying 2 colors are correct
+      mm = Mastermind.new
+      assert_equal 2, mm.evaluate_colors("rrgb", "yyrg")
   end
 
-  def test_when_order_is_correct_it_prompts_user_with_a_message
+  def test_evaluate_positions_returns_number_of_correct_positions
   	# message gives number of correct positions
-  	skip
+    mm = Mastermind.new
+    assert_equal 2, mm.evaluate_positions("byrb", "yyrg")
   end
 
-  def test_it_can_evaluate_correct_order
-  	skip
-  	mm = Mastermind.new
-  	assert 
-  end
-
-  def test_when_colors_and_order_are_correct_user_wins
+  def test_w
   	skip
   end
 
