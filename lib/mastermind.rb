@@ -31,23 +31,27 @@ class Mastermind
 		end
 	end
 
-	def all_chars_valid?(input)
-		input.each_char.all? do |letter|
+	def all_chars_valid?(user_input)
+		user_input.each_char.all? do |letter|
 		  @colors.include?(letter)
 		end
 	end
 
-	# def evaluate_colors(guess, color_code = generated_sequence)
-	# 	correct_colors = 0
-		
-	# 		end
-	# 	end
-	# 	correct_colors
-	# end
+	def evaluate_colors(user_input, color_code = generated_sequence)
+		correct_colors = 0
+		generated_sequence = color_code.split("")
+		guess = user_input.split("").each do |color|
+			if generated_sequence.include?(color)
+				generated_sequence.delete_at(generated_sequence.index(color))
+				correct_colors += 1
+			end
+		end
+		correct_colors
+	end
 
-	def evaluate_positions(guess, color_code = generated_sequence)
+	def evaluate_positions(user_input, color_code = generated_sequence)
 		correct_positions = 0
-		guess = guess.split("")
+		guess = user_input.split("")
 		generated_sequence = color_code.split("")
 		guess.each_with_index do |color, position|
 			if color == generated_sequence[position]
@@ -57,11 +61,7 @@ class Mastermind
 		correct_positions
 	end
 
-	def evaluate_guess(guess, code = generated_sequence)
-		# takes in a guess and a code
-		# return number of correct colors(method) and number of correct positions(method)
-		# {:colors => "number of correct colors", :positions => "number in correct positions"}
-	end
+
 
 	# def evaluate_guess(user_input)
 	# 			guess = user_input

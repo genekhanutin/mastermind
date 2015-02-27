@@ -12,10 +12,8 @@
 
   def test_it_can_generate_random_order_of_four_colors
     mm = Mastermind.new
-
     sequence1 = mm.color_shuffle
     sequence2 = mm.color_shuffle
-
     refute sequence1 == sequence2
   end
 
@@ -25,6 +23,9 @@
   end
 
   def test_it_counts_number_of_guesses
+    # everytime evaluate guess is called guess count -1
+    # after every guess display message showing correct pos. count
+    # correct color count, guess again, and number of guesses left
   	skip
   end
 
@@ -79,13 +80,12 @@
     # set up a guess against that code where we have 2 of the correct color
     # call evaluate_guess and pass in our guess
     # verify it comes back saying 2 colors are correct
-    skip
     mm = Mastermind.new
     assert_equal 4, mm.evaluate_colors("rrbg", "rrbg")
     assert_equal 0, mm.evaluate_colors("gbgb", "yyyy")
     assert_equal 2, mm.evaluate_colors("bggr", "brrr")
     assert_equal 3, mm.evaluate_colors("bgbr", "bgbg")
-    assert_equal 1, mm.evaluate_colors("bgbr", "bgbg")
+    assert_equal 1, mm.evaluate_colors("gyyy", "bgbg")
   end
 
   def test_it_has_a_start_time
