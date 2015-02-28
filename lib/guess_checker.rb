@@ -15,36 +15,30 @@ class GuessChecker
 	end
 
 	def evaluate_guess
-    loop do
-      if guess.length > 4
-        puts Response.too_many_char
-        notify_and_reset_guess
-      elsif guess.length < 4
-        puts Response.not_enough_char
-        notify_and_reset_guess
-      elsif !all_chars_valid?(guess)
-        puts Response.color_unknown
-        notify_and_reset_guess
-      elsif !winning_guess?(guess)
-      	evaluate_correct_colors(guess)
-      	evaluate_correct_positions(guess)
-        @guess_count -= 1
-        notify_correct 
-        notify_and_reset_guess   
-      else
-        puts Response.win_play_again
-      end
+    if guess.length > 4
+      Response.too_many_char
+    elsif guess.length < 4
+      Response.not_enough_char
+    elsif !all_chars_valid?(guess)
+      Response.color_unknown
+    elsif !winning_guess?(guess)
+    	evaluate_correct_colors(guess)
+    	evaluate_correct_positions(guess)
+      @guess_count -= 1
+      notify_correct_colors_positions 
+      notify_and_reset_guess   
+    else
+      Response.win_play_again
     end
   end
 
   def notify_and_reset_guess
-  	puts Response.guess_again(guess_count)
-    @guess = gets.chomp.downcase
+  	Response.guess_again(guess_count)
   end
 
-  def notify_correct
-  	puts Response.num_correct_positions_message(@correct_position_count)
-    puts Response.num_correct_colors_message(@correct_color_count) 
+  def notify_correct_colors_positions
+  	Response.num_correct_positions_message(@correct_position_count)
+    Response.num_correct_colors_message(@correct_color_count) 
   end
 
   def winning_guess?(user_guess)
@@ -59,7 +53,6 @@ class GuessChecker
   end
 
   def evaluate_correct_colors(user_input, color_code = generated_sequence)
-  	binding.pry
     @correct_color_count = 0
     generated_sequence = color_code.split("")
     guess = user_input.split("").each do |color|
@@ -72,7 +65,6 @@ class GuessChecker
   end
 
   def evaluate_correct_positions(user_input, color_code = generated_sequence)
-  	binding.pry
     @correct_position_count = 0
     guess = user_input.split("")
     generated_sequence = color_code.split("")
