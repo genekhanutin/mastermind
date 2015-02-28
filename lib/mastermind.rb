@@ -21,9 +21,15 @@ class Mastermind
     if user_input == "p" 
       color_shuffle
       puts Response.generated_sequence_guess_message
-      @guess = gets.chomp.downcase
-      gc = GuessChecker.new(@guess, @generated_sequence)
-      gc.evaluate_guess
+      while user_input != "q"
+        user_input = gets.chomp.downcase
+        if ["q", "i", "c"].include?(user_input)
+          evaluate_special_command(user_input)
+        else
+          gc = GuessChecker.new(user_input, @generated_sequence)
+          puts gc.evaluate_guess
+        end
+      end
     elsif user_input == "q"
       exit_game
     else
@@ -33,6 +39,18 @@ class Mastermind
 
   def color_shuffle
     @generated_sequence = (@colors * 5).sample(4).join
+  end
+
+  def evaluate_special_command(command)
+    if command == "q"
+      exit_game
+    elsif command == "i"
+      puts "TODO INSTRUCTIONS HERE"
+      # put instructions
+    elsif command == "c"
+      puts "TODO CHEAT MESSAGE HERE"
+      # put cheat message
+    end
   end
 
   def exit_game

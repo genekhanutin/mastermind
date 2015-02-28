@@ -25,20 +25,19 @@ class GuessChecker
     	evaluate_correct_colors(guess)
     	evaluate_correct_positions(guess)
       @guess_count -= 1
-      notify_correct_colors_positions 
-      notify_and_reset_guess   
+      notify_correct_colors_positions    
     else
       Response.win_play_again
     end
   end
 
-  def notify_and_reset_guess
-  	Response.guess_again(guess_count)
-  end
+
 
   def notify_correct_colors_positions
-  	Response.num_correct_positions_message(@correct_position_count)
-    Response.num_correct_colors_message(@correct_color_count) 
+  	feedback = [Response.num_correct_positions_message(@correct_position_count),
+    Response.num_correct_colors_message(@correct_color_count), 
+    Response.guess_again(guess_count)] 
+    feedback.join("\n")	
   end
 
   def winning_guess?(user_guess)
