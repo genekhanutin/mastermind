@@ -10,7 +10,7 @@ class GuessChecker
 	def initialize(generated_sequence)
 		@generated_sequence = generated_sequence
 		@colors = ['r','g','b','y']
-		@guess_count = 4
+		@guess_count = 15
 	end
 
 	def evaluate_guess(guess)
