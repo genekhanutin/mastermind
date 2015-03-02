@@ -24,7 +24,7 @@ class Mastermind
       guesser = GuessChecker.new(@generated_sequence)
       Response.generated_sequence_guess_message
       while user_input != "q" || user_input == "quit"
-        print "Enter a guess: "
+        print "Enter a guess \n(select (c)heat for answer): "
         user_input = gets.chomp.downcase
         if ["q", "i", "c"].include?(user_input)
           evaluate_special_command(user_input)
@@ -47,7 +47,7 @@ class Mastermind
     if user_input == "q"
       exit_game
     elsif user_input == "i"
-     puts "instructions"
+     Response.new.game_instructions
     elsif user_input == "c"
      puts generated_sequence
     end
