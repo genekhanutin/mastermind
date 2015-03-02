@@ -18,7 +18,7 @@
 
   def test_it_prompts_with_error_message_when_guess_too_long
     gc = GuessChecker.new("rrbby", "yyyy") 
-    assert_equal Response.too_many_char, gc.evaluate_guess
+    #move first parameter assert_equal Response.too_many_char, gc.evaluate_guess()
     gc = GuessChecker.new("rrbbyr", "bbbb") 
     assert_equal Response.too_many_char, gc.evaluate_guess
     gc = GuessChecker.new("rrbbggy","bgbg") 
@@ -44,8 +44,6 @@
   end
 
   def test_evaluate_positions_returns_number_of_correct_positions
-    gc = GuessChecker.new("byrb", "yyrg")
-    assert_equal 2, gc.evaluate_correct_positions("byrb", "yyrg")
     gc = GuessChecker.new("byrb", "yyyy")
     assert_equal 1, gc.evaluate_correct_positions("byrb", "yyyy")
     gc = GuessChecker.new("ryrr", "gbgb")

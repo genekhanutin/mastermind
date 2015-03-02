@@ -1,10 +1,14 @@
 class Response
 	def self.too_many_char
-	  "You typed too many characters, please type 4!"
+	  puts "You typed too many characters, please type 4!"
 	end 
 
 	def self.not_enough_char
-		"Not enough characters, please type 4!"
+		puts "Not enough characters, please type 4!"
+	end
+
+	def self.lose_message(generated_sequence)
+		puts "you lose! you're out of guesses! The secret code was #{generated_sequence} would you like to play again? Select (p)lay or (q)uit"
 	end
 
 	def self.color_unknown
@@ -20,8 +24,8 @@ class Response
 	end
 
 
-	def self.win_play_again
-		puts "You've won! would you like to play again? Select (p)lay or (q)uit"
+	def self.win_play_again(guess_count)
+		puts "You've won! You had #{guess_count} guess(es) left would you like to play again? Select (p)lay or (q)uit"
 	end
 
 	def self.guess_again(guess_count)

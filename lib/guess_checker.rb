@@ -1,20 +1,19 @@
 require_relative 'response'
 require_relative 'mastermind'
-require 'pry'
+
 
 class GuessChecker
 
 	attr_reader :generated_sequence, :guess_count
-	attr_accessor :guess
+	
 
-	def initialize(guess, generated_sequence)
-		@guess = guess
+	def initialize(generated_sequence)
 		@generated_sequence = generated_sequence
 		@colors = ['r','g','b','y']
-		@guess_count = 15
+		@guess_count = 4
 	end
 
-	def evaluate_guess
+	def evaluate_guess(guess)
     if guess.length > 4
       Response.too_many_char
     elsif guess.length < 4
@@ -22,10 +21,11 @@ class GuessChecker
     elsif !all_chars_valid?(guess)
       Response.color_unknown
     elsif winning_guess?(guess)
-    	end_time = Time.now
-    	Response.win_play_again 
-        mm = Mastermind.new
-        mm.start_game  
+    	Response.win_play_again(@guess_count) 
+      Mastermind.new.start_game
+    elsif guess_count == 1
+      Response.lose_message(@generated_sequence)
+      Mastermind.new.start_game
     else
     	evaluate_correct_colors(guess)
       evaluate_correct_positions(guess)
@@ -37,7 +37,7 @@ class GuessChecker
   def notify_correct_colors_positions
   	feedback = [Response.num_correct_positions_message(@correct_position_count),
     Response.num_correct_colors_message(@correct_color_count), 
-    Response.guess_again(guess_count)] 
+    Response.guess_again(@guess_count)] 
     feedback.join("\n")	
   end
 

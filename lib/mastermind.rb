@@ -1,6 +1,6 @@
 require_relative 'response'
 require_relative 'guess_checker'
-require 'pry'
+
 
 class Mastermind
   
@@ -17,18 +17,19 @@ class Mastermind
   end
 
   def start_game
+    print ">>>"
     user_input = gets.chomp.downcase
-    if user_input == "p" 
+    if user_input == "p" || user_input == "play"
       color_shuffle
-       Response.generated_sequence_guess_message
-      while user_input != "q" 
+      guesser = GuessChecker.new(@generated_sequence)
+      Response.generated_sequence_guess_message
+      while user_input != "q" || user_input == "quit"
         print "Enter a guess: "
         user_input = gets.chomp.downcase
         if ["q", "i", "c"].include?(user_input)
           evaluate_special_command(user_input)
         else
-          gc = GuessChecker.new(user_input, @generated_sequence)
-          puts gc.evaluate_guess
+          puts guesser.evaluate_guess(user_input)
         end
       end
     elsif user_input == "q"
@@ -42,12 +43,12 @@ class Mastermind
     @generated_sequence = (@colors * 5).sample(4).join
   end
 
-  def evaluate_special_command(command)
-    if command == "q"
+  def evaluate_special_command(user_input)
+    if user_input == "q"
       exit_game
-    elsif command == "i"
+    elsif user_input == "i"
      puts "instructions"
-    elsif command == "c"
+    elsif user_input == "c"
      puts generated_sequence
     end
   end
