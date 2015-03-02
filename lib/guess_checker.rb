@@ -21,17 +21,18 @@ class GuessChecker
       Response.not_enough_char
     elsif !all_chars_valid?(guess)
       Response.color_unknown
-    elsif !winning_guess?(guess)
-    	evaluate_correct_colors(guess)
-    	evaluate_correct_positions(guess)
-      @guess_count -= 1
-      notify_correct_colors_positions    
+    elsif winning_guess?(guess)
+    	end_time = Time.now
+    	Response.win_play_again 
+        mm = Mastermind.new
+        mm.start_game  
     else
-      Response.win_play_again
+    	evaluate_correct_colors(guess)
+      evaluate_correct_positions(guess)
+      @guess_count -= 1
+      notify_correct_colors_positions
     end
   end
-
-
 
   def notify_correct_colors_positions
   	feedback = [Response.num_correct_positions_message(@correct_position_count),
@@ -41,7 +42,6 @@ class GuessChecker
   end
 
   def winning_guess?(user_guess)
-    end_time = Time.now
     user_guess == generated_sequence
   end
 

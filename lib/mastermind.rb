@@ -20,8 +20,9 @@ class Mastermind
     user_input = gets.chomp.downcase
     if user_input == "p" 
       color_shuffle
-      puts Response.generated_sequence_guess_message
-      while user_input != "q"
+       Response.generated_sequence_guess_message
+      while user_input != "q" 
+        print "Enter a guess: "
         user_input = gets.chomp.downcase
         if ["q", "i", "c"].include?(user_input)
           evaluate_special_command(user_input)
@@ -45,16 +46,14 @@ class Mastermind
     if command == "q"
       exit_game
     elsif command == "i"
-      puts "TODO INSTRUCTIONS HERE"
-      # put instructions
+     puts "instructions"
     elsif command == "c"
-      puts "TODO CHEAT MESSAGE HERE"
-      # put cheat message
+     puts generated_sequence
     end
   end
 
   def exit_game
-    puts Response.goodbye_message
+    Response.goodbye_message
     exit
   end
 
