@@ -17,20 +17,5 @@
     sequence2 = mm.color_shuffle
     refute sequence1 == sequence2
   end
-
-
-  def test_it_has_a_start_time
-  	# Time begins after first guess
-  	skip
-  end
-
-  def test_it_has_a_final_time
-  	# Time ends when user wins, runs out of guesses
-  	skip
-  end
-
-  def test_it_prints_game_statistics_after_game_is_over
-  	skip
-  end
 end
 
